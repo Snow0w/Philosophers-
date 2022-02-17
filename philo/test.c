@@ -15,8 +15,7 @@ int	main(int argc, char **argv)
 	pthread_create(&t[2], NULL, &start, NULL);
 	gettimeofday(&time, NULL);
 	printf("sec: %ld\nmicrosec: %d\n", time.tv_sec, time.tv_usec);
-	usleep(1000000);
-	gettimeofday(&time, NULL);
-	printf("sec: %ld\nmicrosec: %d\n", time.tv_sec, time.tv_usec);
+	usleep(1500000);
+	printf("%d\n", get_timestamp(time));
 	return (0);
 }
