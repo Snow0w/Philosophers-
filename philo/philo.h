@@ -20,12 +20,16 @@ typedef struct s_input_data
 }				t_input_data;
 
 int		ft_atoi(const char *str);
+
 int		msg_correct_input(void);
-int		first_parse(char **argv, int mode);
-int		get_timestamp(t_time start_time);
 int		msg_wrong_philo_num(void);
 int		msg_wrong_eat_time(void);
 int		msg_wrong_die_time(void);
 int		msg_wrong_sleep_time(void);
+
 int		free_threads_only(pthread_t *threads);
+
+int		first_parse(char **argv, int mode);
+
+int		get_timestamp(t_time start_time);
 #endif
