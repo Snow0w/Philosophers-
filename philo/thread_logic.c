@@ -7,5 +7,4 @@ void *start_thread(void *ptr)
 	info = (t_thread_data *) ptr;
 	printf("Hello, %d\n", info->cnt);
 	return (NULL);
-
 }
