@@ -15,10 +15,7 @@ int	get_timestamp(t_time start_time)
 		out = (int) sec_diff * 1000000 + (int) mi_sec_diff;
 		return (out / 1000);
 	}
-	else
-	{
-		mi_sec_diff = start_time.tv_usec - current_time.tv_usec;
-		out = (int) sec_diff * 1000000 - (int) mi_sec_diff;
-		return (out / 1000);
-	}
+	mi_sec_diff = start_time.tv_usec - current_time.tv_usec;
+	out = (int) sec_diff * 1000000 - (int) mi_sec_diff;
+	return (out / 1000);
 }
