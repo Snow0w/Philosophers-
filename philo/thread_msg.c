@@ -44,13 +44,13 @@ int	sleep_msg(t_thread_data *info)
 	return (0);
 }
 
-int	die_msg(t_thread_data *info)
+int	die_msg(t_input_data *data, int cnt)
 {
 	int	time;
 
-	time = get_timestamp(info->data->time);
-	pthread_mutex_lock(&(info->data->mut));
-	printf("%d %d died\n", time, info->cnt + 1);
-	pthread_mutex_unlock(&(info->data->mut));
+	time = get_timestamp(data->time);
+	pthread_mutex_lock(&(data->mut));
+	printf("%d %d died\n", time, cnt + 1);
+	pthread_mutex_unlock(&(data->mut));
 	return (0);
 }

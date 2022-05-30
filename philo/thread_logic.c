@@ -7,7 +7,9 @@ int	odd_philo(t_thread_data *info)
 	pthread_mutex_lock(&(info->data->mutexes[(info->cnt + 1) %
 				info->data->num]));
 	fork_msg(info);
-	info->data->last_meal[i] = get_timestamp(info->data->time);
+	pthread_mutex_lock(&(info->data->meal_mut[info->cnt]));
+	info->data->last_meal[info->cnt] = get_timestamp(info->data->time);
+	pthread_mutex_unlock(&(info->data->meal_mut[info->cnt]));
 	eat_msg(info);
 	ft_usleep(info->data->eat_time);
 	pthread_mutex_unlock(&(info->data->mutexes[info->cnt]));
@@ -23,7 +25,9 @@ int	even_philo(t_thread_data *info)
 	fork_msg(info);
 	pthread_mutex_lock(&(info->data->mutexes[info->cnt]));
 	fork_msg(info);
-	//info->data->last_meal[i] = get_timestamp(info->data->time);
+	pthread_mutex_lock(&(info->data->meal_mut[info->cnt]));
+	info->data->last_meal[info->cnt] = get_timestamp(info->data->time);
+	pthread_mutex_unlock(&(info->data->meal_mut[info->cnt]));
 	eat_msg(info);
 	ft_usleep(info->data->eat_time);
 	pthread_mutex_unlock(&(info->data->mutexes[info->cnt]));
@@ -45,7 +49,7 @@ void *start_thread(void *ptr)
 	int				flag;
 
 	info = (t_thread_data *) ptr;
-	flag = get_die_flag(info);
+	flag = get_die_flag(info->data);
 	while (!flag)
 	{
 		think_msg(info);

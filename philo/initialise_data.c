@@ -5,16 +5,16 @@ static int	init_cont(t_input_data *data, t_thread_data *big_data,
 {
 	int	i;
 
-	if (pthread_mutex_init(&(data->flag_mut, NULL)))
+	if (pthread_mutex_init(&(data->flag_mut), NULL))
 		return (free_first_layer2(data, big_data, threads, data->num));
-	meal_mut = malloc(sizeof(int) * data->num);
-	if (!meal_mut)
+	data->meal_mut = malloc(sizeof(pthread_mutex_t) * data->num);
+	if (!data->meal_mut)
 		return (free_first_layer3(data, big_data, threads, data->num));
 	i = 0;
 	while (i < data->num)
 	{
 		if (pthread_mutex_init(&(data->meal_mut[i]), NULL))
-			return (free_first_layer4(data, *big_data, threads, i));
+			return (free_first_layer4(data, big_data, threads, i));
 		i++;
 	}
 	return (0);
@@ -43,6 +43,6 @@ int	initialise_data(t_input_data *data, t_thread_data **big_data,
 		return (free_destroy_threads_mutex(data, *big_data, threads, data->num));
 	data->last_meal = malloc(sizeof(int) * data->num);
 	if (!data->last_meal)
-		return (free_first_layer(data, *big_data, threads, data->num))
+		return (free_first_layer(data, *big_data, threads, data->num));
 	return (init_cont(data, *big_data, threads));
 }

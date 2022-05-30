@@ -4,7 +4,7 @@ int	free_first_layer(t_input_data *data, t_thread_data *big_data,
 		pthread_t *threads, int i)
 {
 	pthread_mutex_destroy(&(data->mut));
-	return (free_destroy_threads_mutex(data, *big_data, threads, i));
+	return (free_destroy_threads_mutex(data, big_data, threads, i));
 }
 
 int	free_first_layer2(t_input_data *data, t_thread_data *big_data,

@@ -22,8 +22,8 @@ typedef struct s_input_data
 	pthread_mutex_t	mut;
 	t_time			time;
 	int				*last_meal;
-	int				*meal_mut;
-	int				flag_mut;
+	pthread_mutex_t	*meal_mut;
+	pthread_mutex_t	flag_mut;
 	
 }				t_input_data;
 
@@ -75,7 +75,7 @@ int		ft_usleep(int time);
 
 int		think_msg(t_thread_data *info);
 int		fork_msg(t_thread_data *info);
-int		die_msg(t_thread_data *info);
+int		die_msg(t_input_data *info, int cnt);
 int		sleep_msg(t_thread_data *info);
 int		eat_msg(t_thread_data *info);
 

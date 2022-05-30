@@ -26,10 +26,10 @@ int	start_logic(t_input_data *data, pthread_t *threads)
 		return (1);
 	i = 0;
 	gettimeofday(&(data->time), NULL);
-	memset(data->last_meal, data->time, data->num);
 	while (i < data->num)
 	{
 		big_data[i].cnt = i;
+		memset(&(data->last_meal[i]), get_timestamp(data->time), data->num);
 		if (pthread_create(&threads[i], NULL, start_thread, &big_data[i]))
 			return (1); // should be wrong. Can't simple free all. Can be segv from other thgreads
 		i++;

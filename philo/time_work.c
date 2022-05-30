@@ -24,12 +24,12 @@ int	ft_usleep(int time)
 {
 	int	i;
 
-	i = 100;
+	i = 200;
 	while (i < time)
 	{
 		usleep((useconds_t) (100000));
-		i += 100;
+		i += 200;
 	}
-	usleep((useconds_t) (time % 100 * 1000));
+	usleep((useconds_t) (time % 200 * 1000));
 	return (0);
 }
