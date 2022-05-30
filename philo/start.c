@@ -9,7 +9,7 @@ int	join_philo_threads(t_input_data *data, pthread_t *threads)
 	while (i < data->num)
 	{
 		if (pthread_join(threads[i], NULL))
-			return (1);
+			return (1); // myabe clear all ???
 		i++;
 	}
 	return (0);
@@ -20,23 +20,20 @@ int	start_logic(t_input_data *data, pthread_t *threads)
 	int				i;
 	t_thread_data	*big_data;
 
-	data->mutexes =  malloc(sizeof(pthread_mutex_t) * data->num);
-	if (!data->mutexes)
-		return (free_threads_only(threads));
-	gettimeofday(&(data->time), NULL);
+	big_data = NULL;
+	if (initialise_data(data, &big_data, threads))
+		return (1);
 	i = 0;
-	big_data = malloc(sizeof(t_thread_data) * data->num);
-	if (!big_data)
-		return (free_threads_mutexes(threads, data->mutexes));
+	gettimeofday(&(data->time), NULL);
 	while (i < data->num)
 	{
 		big_data[i].cnt = i;
-		big_data[i].data = data;
 		if (pthread_create(&threads[i], NULL, start_thread, &big_data[i]))
-			return (free_thread_mut_data(threads, data->mutexes, big_data));
+			return (free_after_init(threads, big_data)); // should be wrong
 		i++;
 	}
 	i = join_philo_threads(data, threads);
+	//free before out
 	return (0);
 }
 

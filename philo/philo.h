@@ -40,7 +40,11 @@ int		msg_must_eat(void);
 
 int		free_threads_only(pthread_t *threads);
 int		free_threads_mutexes(pthread_t *threads, pthread_mutex_t *mutexes);
-int		free_thread_mut_data(pthread_t *threads, pthread_mutex_t *mutexes, t_thread_data *big_data);
+int		free_thread_mut_data(pthread_t *threads, pthread_mutex_t *mutexes,
+		t_thread_data *big_data);
+int		free_destroy_threads_mutex(t_input_data *data, t_thread_data *big_data,
+		pthread_t *threads, int i);
+int		free_after_init(pthread_t *threads, t_thread_data *big_data);
 
 
 int		first_parse(char **argv, int mode, pthread_t *threads);
@@ -49,4 +53,15 @@ void 	*start_thread(void *ptr);
 int		get_timestamp(t_time start_time);
 
 int		*die_flag(void);
+
+int		initialise_data(t_input_data *data, t_thread_data **big_data,
+		pthread_t *threads);
+
+int		ft_usleep(int time);
+
+int		think_msg(t_thread_data *info);
+int		fork_msg(t_thread_data *info);
+int		die_msg(t_thread_data *info);
+int		sleep_msg(t_thread_data *info);
+int		eat_msg(t_thread_data *info);
 #endif

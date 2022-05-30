@@ -8,6 +8,8 @@ OBJ_DIR	=	obj/
 
 FLAGS	=	-Wall -Werror -Wextra
 
+FLAGS	+=	 -fsanitize=thread
+
 HEADER	=	philo.h
 
 CC			=	gcc

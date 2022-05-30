@@ -19,3 +19,9 @@ int	get_timestamp(t_time start_time)
 	out = (int) sec_diff * 1000000 - (int) mi_sec_diff;
 	return (out / 1000);
 }
+
+int	ft_usleep(int time)
+{
+	usleep((useconds_t) (time * 1000));
+	return (0);
+}
