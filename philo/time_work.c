@@ -22,6 +22,14 @@ int	get_timestamp(t_time start_time)
 
 int	ft_usleep(int time)
 {
-	usleep((useconds_t) (time * 1000));
+	int	i;
+
+	i = 100;
+	while (i < time)
+	{
+		usleep((useconds_t) (100000));
+		i += 100;
+	}
+	usleep((useconds_t) (time % 100 * 1000));
 	return (0);
 }

@@ -19,19 +19,23 @@ int	start_logic(t_input_data *data, pthread_t *threads)
 {
 	int				i;
 	t_thread_data	*big_data;
+	pthread_t		garcon;
 
 	big_data = NULL;
 	if (initialise_data(data, &big_data, threads))
 		return (1);
 	i = 0;
 	gettimeofday(&(data->time), NULL);
+	memset(data->last_meal, data->time, data->num);
 	while (i < data->num)
 	{
 		big_data[i].cnt = i;
 		if (pthread_create(&threads[i], NULL, start_thread, &big_data[i]))
-			return (free_after_init(threads, big_data)); // should be wrong
+			return (1); // should be wrong. Can't simple free all. Can be segv from other thgreads
 		i++;
 	}
+	if (pthread_create(&garcon, NULL, start_garcon, data))
+		return (1); // hzhzhzhzzhzhzhzhzhzh
 	i = join_philo_threads(data, threads);
 	//free before out
 	return (0);

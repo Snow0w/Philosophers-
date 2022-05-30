@@ -6,6 +6,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <string.h>
 
 typedef struct timeval	t_time;
 
@@ -20,6 +21,9 @@ typedef struct s_input_data
 	pthread_mutex_t	*mutexes;
 	pthread_mutex_t	mut;
 	t_time			time;
+	int				*last_meal;
+	int				*meal_mut;
+	int				flag_mut;
 	
 }				t_input_data;
 
@@ -45,6 +49,14 @@ int		free_thread_mut_data(pthread_t *threads, pthread_mutex_t *mutexes,
 int		free_destroy_threads_mutex(t_input_data *data, t_thread_data *big_data,
 		pthread_t *threads, int i);
 int		free_after_init(pthread_t *threads, t_thread_data *big_data);
+int		free_first_layer(t_input_data *data, t_thread_data *big_data,
+		pthread_t *threads, int i);
+int		free_first_layer2(t_input_data *data, t_thread_data *big_data,
+		pthread_t *threads, int i);
+int		free_first_layer3(t_input_data *data, t_thread_data *big_data,
+		pthread_t *threads, int i);
+int		free_first_layer4(t_input_data *data, t_thread_data *big_data,
+		pthread_t *threads, int i);
 
 
 int		first_parse(char **argv, int mode, pthread_t *threads);
@@ -53,6 +65,8 @@ void 	*start_thread(void *ptr);
 int		get_timestamp(t_time start_time);
 
 int		*die_flag(void);
+int		get_die_flag(t_input_data *data);
+int		set_die_flag(t_input_data *data, int flag);
 
 int		initialise_data(t_input_data *data, t_thread_data **big_data,
 		pthread_t *threads);
@@ -64,4 +78,6 @@ int		fork_msg(t_thread_data *info);
 int		die_msg(t_thread_data *info);
 int		sleep_msg(t_thread_data *info);
 int		eat_msg(t_thread_data *info);
+
+void	*start_garcon(void *ptr);
 #endif
