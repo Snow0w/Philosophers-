@@ -1,7 +1,7 @@
 #include "philo.h"
 
 
-int	join_philo_threads(t_input_data *data, pthread_t *threads)
+int	join_philo_threads(t_input_data *data, pthread_t *threads, pthread_t *garcon)
 {
 	int	i;
 
@@ -12,6 +12,8 @@ int	join_philo_threads(t_input_data *data, pthread_t *threads)
 			return (1); // myabe clear all ???
 		i++;
 	}
+	if (pthread_join(*garcon, NULL))
+		return (1); // myabe clear all ???
 	return (0);
 }
 
@@ -36,7 +38,7 @@ int	start_logic(t_input_data *data, pthread_t *threads)
 	}
 	if (pthread_create(&garcon, NULL, start_garcon, data))
 		return (1); // hzhzhzhzzhzhzhzhzhzh
-	i = join_philo_threads(data, threads);
+	i = join_philo_threads(data, threads, &garcon);
 	//free before out
 	return (0);
 }

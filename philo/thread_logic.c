@@ -53,11 +53,13 @@ void *start_thread(void *ptr)
 	while (!flag)
 	{
 		think_msg(info);
-		if (info->cnt % 2)
+		if (info->cnt % 2 && !get_die_flag(info->data))
 			odd_philo(info);
-		else
+		else if (!get_die_flag(info->data))
 			even_philo(info);
+		if (!get_die_flag(info->data))
 		sleeping_process(info);
+		flag = get_die_flag(info->data);
 	}
 	return (NULL);
 }
