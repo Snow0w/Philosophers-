@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialise_data.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omanie <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/01 17:25:48 by omanie            #+#    #+#             */
+/*   Updated: 2022/06/01 17:26:52 by omanie           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	init_cont(t_input_data *data, t_thread_data *big_data,
@@ -17,6 +29,8 @@ static int	init_cont(t_input_data *data, t_thread_data *big_data,
 			return (free_first_layer4(data, big_data, threads, i));
 		i++;
 	}
+	if (pthread_mutex_init(&(data->finish_mut), NULL))
+		return (free_first_layer4(data, big_data, threads, data->num));
 	return (0);
 }
 
@@ -25,7 +39,7 @@ int	initialise_data(t_input_data *data, t_thread_data **big_data,
 {
 	int	i;
 
-	data->mutexes =  malloc(sizeof(pthread_mutex_t) * data->num);
+	data->mutexes = malloc(sizeof(pthread_mutex_t) * data->num);
 	if (!data->mutexes)
 		return (free_threads_only(threads));
 	*big_data = malloc(sizeof(t_thread_data) * data->num);
@@ -40,7 +54,8 @@ int	initialise_data(t_input_data *data, t_thread_data **big_data,
 		i++;
 	}
 	if (pthread_mutex_init(&(data->mut), NULL))
-		return (free_destroy_threads_mutex(data, *big_data, threads, data->num));
+		return (free_destroy_threads_mutex(data, *big_data, threads,
+				data->num));
 	data->last_meal = malloc(sizeof(int) * data->num);
 	if (!data->last_meal)
 		return (free_first_layer(data, *big_data, threads, data->num));

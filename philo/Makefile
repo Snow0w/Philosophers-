@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: omanie <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/06/01 17:25:54 by omanie            #+#    #+#              #
+#    Updated: 2022/06/01 17:26:52 by omanie           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	philo
 
 SRCS	=	$(wildcard *.c)
@@ -7,8 +19,6 @@ OBJS	=	$(patsubst %.c, obj/%.o, $(SRCS))
 OBJ_DIR	=	obj/
 
 FLAGS	=	-Wall -Werror -Wextra
-
-FLAGS	+=	 -fsanitize=thread
 
 HEADER	=	philo.h
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time_work.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: omanie <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/01 17:26:11 by omanie            #+#    #+#             */
+/*   Updated: 2022/06/01 17:26:52 by omanie           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	get_timestamp(t_time start_time)
@@ -22,17 +34,18 @@ int	get_timestamp(t_time start_time)
 
 int	ft_usleep(int time)
 {
-	/*
-	int	i;
+	t_time	current_time;
+	int		start;
 
-	i = 200;
-	while (i < time)
+	gettimeofday(&current_time, NULL);
+	start = (int) current_time.tv_sec * 1000
+		+ (int) current_time.tv_usec / 1000;
+	usleep(time * 800);
+	while ((int) current_time.tv_sec * 1000
+		+ (int) current_time.tv_usec / 1000 - start < time)
 	{
-		usleep((useconds_t) (100000));
-		i += 200;
+		gettimeofday(&current_time, NULL);
+		usleep(200);
 	}
-	usleep((useconds_t) (time % 200 * 1000));
-	*/
-	usleep(time * 1000);
 	return (0);
 }

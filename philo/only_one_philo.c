@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msg2.c                                             :+:      :+:    :+:   */
+/*   only_one_philo.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,18 @@
 
 #include "philo.h"
 
-int	msg_must_eat(void)
+void	*only_one_logic(void *ptr)
 {
-	printf("Number of meals can't be zero or less.\n");
-	return (1);
+	t_thread_data	*info;
+
+	info = (t_thread_data *) ptr;
+	while (!get_die_flag(info->data))
+	{
+		think_msg(info);
+		pthread_mutex_lock(&(info->data->mutexes[info->cnt]));
+		fork_msg(info);
+		pthread_mutex_unlock(&(info->data->mutexes[info->cnt]));
+		ft_usleep(info->data->die_time + info->data->sleep_time);
+	}
+	return (NULL);
 }
